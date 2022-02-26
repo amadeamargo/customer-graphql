@@ -33,6 +33,7 @@ const RootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString }
       },
+      // API/database call
       resolve(parentValue, args) {
         // for (let i = 0; i < customers.length; i++) {
         //   if (customers[i].id == args.id) {

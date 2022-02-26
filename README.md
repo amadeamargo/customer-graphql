@@ -1,9 +1,12 @@
 # Customer Base 
 
 **Resource:** [TraversyMedia series](https://www.youtube.com/watch?v=PEcJxkylcRM)
+
+- in terminal 1: run the server file `npm run dev`
+- in terminal 2: run the json-server mock API `npm run json`
 - visit `http://localhost:4000/graphql`
-- Add query on the left side 
-- Click the play button
+  - Add query on the left side 
+  - Click the play button
 
 ## GET /customer
 ```
