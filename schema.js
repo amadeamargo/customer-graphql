@@ -7,7 +7,7 @@ const {
   GraphQLList,
   GraphQLNonNull,
 } = require("graphql");
-const apiUrl = "http://localhost:5000"
+const apiUrl = "http://localhost:5000/customers"
 
 // const customers = [
 //   { id: "1", name: "Dolly Parton", email: "dolly@email.com", age: 74 },
@@ -39,7 +39,7 @@ const RootQuery = new GraphQLObjectType({
         //     return customers[i];
         //   }
         // }
-        return axios.get(`${apiUrl}/customers/${args.id}`)
+        return axios.get(`${apiUrl}/${args.id}`)
                     .then(customer => customer.data)
       },
     },
@@ -47,13 +47,59 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(CustomerType),
       resolve(parentValue, args){
         // return customers
-        return axios.get(`${apiUrl}/customers`)
+        return axios.get(apiUrl)
                     .then(customers => customers.data)
       }
     }
   },
 });
 
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addCustomer: {
+      type: CustomerType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString)},
+        email: { type: new GraphQLNonNull(GraphQLString)},
+        age: { type: new GraphQLNonNull(GraphQLInt)},
+      },
+      resolve(parentValue, args){
+        return axios.post(apiUrl, {
+          name: args.name,
+          email: args.email,
+          age: args.age
+        })
+        .then(customer => customer.data)
+      }
+    },
+    deleteCustomer: {
+      type: CustomerType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString)},
+      },
+      resolve(parentValue, args){
+        return axios.delete(`${apiUrl}/${args.id}`)
+        .then(customer => customer.data)
+      }
+    },
+    editCustomer: {
+      type: CustomerType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString)},
+        name: { type: GraphQLString},
+        email: { type: GraphQLString},
+        age: { type: GraphQLInt},
+      },
+      resolve(parentValue, args){
+        return axios.patch(`${apiUrl}/${args.id}`, args)
+        .then(customer => customer.data)
+      }
+    }
+  }
+})
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 });

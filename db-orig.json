@@ -2,6 +2,7 @@
   "customers": [
       { "id": "1", "name": "Dolly Parton", "email": "dolly@email.com", "age": 74 },
       { "id": "2", "name": "Kenny Rogers", "email": "kennym@email.com", "age": 80 },
-      { "id": "3", "name": "Zac Brown", "email": "zac@email.com", "age": 40 }
+      { "id": "3", "name": "Zac Brown", "email": "zac@email.com", "age": 40 },
+      { "id": "4", "name": "Loretta Lynn", "email": "coalminersdaughter@email.com", "age": 88 },
   ]
 }
